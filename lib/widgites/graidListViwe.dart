@@ -12,7 +12,7 @@ class GridListviwe extends StatelessWidget {
 
   final TextEditingController textEditingController;
   final List<CharacterModel> allCharter;
-  final  serchedCharacter;
+  final serchedCharacter;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class GridListviwe extends StatelessWidget {
           mainAxisSpacing: 1),
       itemBuilder: (context, index) {
         return MyCard(
-          product: textEditingController.text.isEmpty
+          charter: textEditingController.text.isEmpty
               ? allCharter[index]
               : serchedCharacter[index],
         );

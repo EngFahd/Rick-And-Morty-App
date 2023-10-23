@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   late var listCharter;
   // new list to add searched Charter
   var serchedCharacter;
-  // ============================
+  // =================== to do search app bar
   late List<CharacterModel> allCharter;
   bool isSearching = false;
   final textEditingController = TextEditingController();
@@ -40,12 +40,12 @@ class _HomeState extends State<Home> {
         });
   }
 
-
   // ================================== filtering data
   addSearchItemToSearchedList(String searchedCharacter) async {
-    
-    serchedCharacter = allCharter.where(
-        (charter) => charter.name.toLowerCase().startsWith(searchedCharacter)).toList();
+    serchedCharacter = allCharter
+        .where((charter) =>
+            charter.name.toLowerCase().startsWith(searchedCharacter))
+        .toList();
     setState(() {});
   }
 
@@ -102,6 +102,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+// =============end Search app Bar =================
   @override
   void initState() {
     BlocProvider.of<CharcterCubit>(context).getCharter();
@@ -112,6 +113,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // listCharter = BlocProvider.of<CharcterCubit>(context).getCharter();
     return Scaffold(
+        backgroundColor: kGrey,
         appBar: AppBar(
             actions: buildAppBarIcon(),
             leading: isSearching
@@ -119,13 +121,16 @@ class _HomeState extends State<Home> {
                     color: kGrey,
                   )
                 : Container(),
-            backgroundColor: kYellows,
+            backgroundColor: kWhite,
             title: isSearching ? buildSearch() : buildAppbarTitel()),
         body: BlocBuilder<CharcterCubit, CharcterState>(
           builder: (context, state) {
             if (state is CharcterSuccess) {
               allCharter = state.SuccessList;
-              return GridListviwe(textEditingController: textEditingController, allCharter: allCharter, serchedCharacter: serchedCharacter);
+              return GridListviwe(
+                  textEditingController: textEditingController,
+                  allCharter: allCharter,
+                  serchedCharacter: serchedCharacter);
             } else if (state is CharcterLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -139,4 +144,3 @@ class _HomeState extends State<Home> {
         ));
   }
 }
-
